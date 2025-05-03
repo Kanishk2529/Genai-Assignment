@@ -1,0 +1,54 @@
+import random
+
+class EntertainmentChatbot:
+    def __init__(self):
+        self.greetings = ["Hi!", "Hello!", "Hey there!", "Greetings!", "Howdy!"]
+        self.jokes = [
+            "Why don't scientists trust atoms? Because they make up everything!",
+            "What do you call fake spaghetti? An impasta!",
+            "Why did the scarecrow win an award? Because he was outstanding in his field!",
+            "Why did the math book look sad? Because it had too many problems.",
+            "Parallel lines have so much in common. It’s a shame they’ll never meet!"
+        ]
+        self.movies = [
+            "Inception", "The Matrix", "Interstellar", "The Dark Knight", "Forrest Gump", "Avengers: Endgame"
+        ]
+        self.commands = {
+            "joke": self.tell_joke,
+            "movie": self.suggest_movie,
+            "hello": self.say_hello,
+            "hi": self.say_hello,
+            "greet": self.say_hello,
+            "bye": self.say_bye,
+            "exit": self.say_bye
+        }
+
+    def say_hello(self):
+        return random.choice(self.greetings)
+
+    def tell_joke(self):
+        return random.choice(self.jokes)
+
+    def suggest_movie(self):
+        return f"You should watch '{random.choice(self.movies)}'!"
+
+    def say_bye(self):
+        return "Goodbye! Stay entertained! 🎬"
+
+    def chat(self, user_input):
+        user_input = user_input.lower()
+        for keyword in self.commands:
+            if keyword in user_input:
+                return self.commands[keyword]()
+        return "Hmm, I didn't get that. You can ask for a 'joke' or a 'movie'!"
+
+if __name__ == "__main__":
+    bot = EntertainmentChatbot()
+    print("🎉 EntertainmentBot: Hello! I'm here to entertain you. Type 'bye' or 'exit' to leave.")
+    while True:
+        user_input = input("You: ")
+        if any(bye_word in user_input.lower() for bye_word in ["bye", "exit"]):
+            print(f"EntertainmentBot: {bot.say_bye()}")
+            break
+        response = bot.chat(user_input)
+        print(f"EntertainmentBot: {response}")
